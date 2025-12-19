@@ -123,7 +123,7 @@ Proprietary - Todos os direitos reservados
 
 ## 👨‍💻 Desenvolvido por
 
-**Antigravity AI** + **Douglas Alves**
+**Antigravity AI** + **Douglas Lessa**
 
 ---
 
