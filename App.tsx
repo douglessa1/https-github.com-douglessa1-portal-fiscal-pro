@@ -49,9 +49,46 @@ import TabelasSimplesNacional from './components/Tools/TabelasSimplesNacional';
 import LucroRealPresumidoCalculator from './components/Tools/LucroRealPresumidoCalculator';
 
 export default function App() {
-  const [showLanding, setShowLanding] = useState(true);
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [activeTool, setActiveTool] = useState<string | null>(null);
+  // Função para ler estado inicial do Hash ou localStorage
+  const getInitialView = () => {
+    // Prioridade 1: URL Hash
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      // Exemplo: #/tools/simples-nacional
+      if (hash.startsWith('/tools/')) {
+        const toolId = hash.replace('/tools/', '');
+        return { showLanding: false, activeTab: 'tools', activeTool: toolId };
+      }
+      // Exemplo: #/app
+      if (hash === '/app') {
+        return { showLanding: false, activeTab: 'dashboard', activeTool: null };
+      }
+      // Outras tabs: #/consultor-ia, #/noticias, etc
+      if (hash.startsWith('/')) {
+        const tab = hash.replace('/', '');
+        return { showLanding: false, activeTab: tab, activeTool: null };
+      }
+    }
+
+    // Prioridade 2: localStorage (última view)
+    const saved = localStorage.getItem('portal_fiscal_state');
+    if (saved) {
+      try {
+        const state = JSON.parse(saved);
+        return state;
+      } catch (e) {
+        console.warn('Failed to parse saved state:', e);
+      }
+    }
+
+    // Prioridade 3: Default (Landing)
+    return { showLanding: true, activeTab: 'dashboard', activeTool: null };
+  };
+
+  const initialState = getInitialView();
+  const [showLanding, setShowLanding] = useState(initialState.showLanding);
+  const [activeTab, setActiveTab] = useState(initialState.activeTab);
+  const [activeTool, setActiveTool] = useState<string | null>(initialState.activeTool);
   const [darkMode, setDarkMode] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -67,6 +104,73 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  // Sincronizar estado com URL Hash e localStorage
+  useEffect(() => {
+    // Construir hash baseado no estado atual
+    let newHash = '';
+
+    if (showLanding) {
+      newHash = ''; // Landing = sem hash
+    } else if (activeTool) {
+      newHash = `/tools/${activeTool}`;
+    } else if (activeTab === 'dashboard') {
+      newHash = '/app';
+    } else {
+      newHash = `/${activeTab}`;
+    }
+
+    // Atualizar URL sem reload
+    if (newHash) {
+      window.location.hash = newHash;
+    } else {
+      // Limpar hash na landing
+      if (window.location.hash) {
+        history.replaceState(null, '', ' ');
+      }
+    }
+
+    // Salvar no localStorage
+    localStorage.setItem('portal_fiscal_state', JSON.stringify({
+      showLanding,
+      activeTab,
+      activeTool
+    }));
+  }, [showLanding, activeTab, activeTool]);
+
+  // Suporte ao botão Voltar do navegador
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+
+      if (!hash) {
+        // Sem hash = Landing
+        setShowLanding(true);
+        setActiveTab('dashboard');
+        setActiveTool(null);
+      } else if (hash.startsWith('/tools/')) {
+        // Hash de ferramenta
+        const toolId = hash.replace('/tools/', '');
+        setShowLanding(false);
+        setActiveTab('tools');
+        setActiveTool(toolId);
+      } else if (hash === '/app') {
+        // Hash do app
+        setShowLanding(false);
+        setActiveTab('dashboard');
+        setActiveTool(null);
+      } else {
+        // Outras tabs
+        const tab = hash.replace('/', '');
+        setShowLanding(false);
+        setActiveTab(tab);
+        setActiveTool(null);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
