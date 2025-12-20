@@ -17,7 +17,7 @@ export default function GeradorDanfe({ onBack }: { onBack: () => void }) {
                             <p className="text-slate-600 dark:text-slate-400 mb-2">
                                 Upload XML da NFe para gerar DANFE
                             </p>
-                            <button className="mt-4 px-6 py-3 bg-emerald-600 text-white rounded-lg font-bold hover:bg-emerald-700 transition-colors flex items-center gap-2 mx-auto">
+                            <button className="mt-4 px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-colors flex items-center gap-2 mx-auto">
                                 <Download size={18} /> Selecionar XML
                             </button>
                         </div>

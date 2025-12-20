@@ -139,7 +139,7 @@ export default function MeiDashboard({ onBack }: { onBack: () => void }) {
                         <p className="text-slate-400 text-sm mb-4 relative z-10">
                             Nossa IA pode analisar se vale a pena migrar para ME (Simples Nacional).
                         </p>
-                        <button className="w-full py-2 bg-emerald-600 rounded-lg font-bold text-sm hover:bg-emerald-500 transition-colors relative z-10">
+                        <button className="w-full py-2 bg-emerald-600 rounded-xl font-bold text-sm hover:bg-emerald-500 transition-colors relative z-10">
                             Consultar IA
                         </button>
                     </div>

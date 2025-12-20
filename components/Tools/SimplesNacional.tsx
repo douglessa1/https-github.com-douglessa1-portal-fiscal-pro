@@ -98,13 +98,13 @@ export default function SimplesNacionalPage({ onBack }: { onBack: () => void }) 
             <div className="max-w-7xl mx-auto">
                 {/* HEADER */}
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2.5 bg-green-500/10 rounded-xl">
-                        <Building2 className="w-6 h-6 text-green-600" />
+                    <div className="p-2.5 bg-emerald-500/10 rounded-xl">
+                        <Building2 className="w-6 h-6 text-emerald-600" />
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
                             <h1 className="text-2xl font-bold text-foreground text-slate-900 dark:text-white">Simples Nacional</h1>
-                            <span className="px-2 py-0.5 text-xs font-medium rounded bg-green-500/10 text-green-600">Regime</span>
+                            <span className="px-2 py-0.5 text-xs font-medium rounded bg-emerald-500/10 text-emerald-600">Regime</span>
                         </div>
                         <p className="text-sm text-slate-500 dark:text-slate-400">Cálculo do DAS por Anexo • LC 123/2006</p>
                     </div>
@@ -123,13 +123,13 @@ export default function SimplesNacionalPage({ onBack }: { onBack: () => void }) 
                                         <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Receita Bruta 12 meses (R$)</label>
                                         <input type="number" name="rbt12" value={formData.rbt12} onChange={handleChange}
                                             placeholder="480000.00" step="0.01" required
-                                            className="w-full h-9 px-3 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 outline-none focus:ring-2 focus:ring-green-500" />
+                                            className="w-full h-9 px-3 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 outline-none focus:ring-2 focus:ring-emerald-500" />
                                     </div>
                                     <div>
                                         <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Receita do Mês (R$)</label>
                                         <input type="number" name="receita" value={formData.receita} onChange={handleChange}
                                             placeholder="50000.00" step="0.01" required
-                                            className="w-full h-9 px-3 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 outline-none focus:ring-2 focus:ring-green-500" />
+                                            className="w-full h-9 px-3 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 outline-none focus:ring-2 focus:ring-emerald-500" />
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@ export default function SimplesNacionalPage({ onBack }: { onBack: () => void }) 
                                 <h2 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">Anexo</h2>
                                 <div className="grid grid-cols-5 gap-2">
                                     {Object.entries(MOCKED_ANEXOS).map(([key, val]) => (
-                                        <label key={key} className={`flex flex-col items-center p-3 rounded-lg border cursor-pointer transition-colors ${formData.anexo === key ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                                        <label key={key} className={`flex flex-col items-center p-3 rounded-lg border cursor-pointer transition-colors ${formData.anexo === key ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
                                             }`}>
                                             <input type="radio" name="anexo" value={key} checked={formData.anexo === key}
                                                 onChange={handleChange} className="sr-only" />
@@ -167,7 +167,7 @@ export default function SimplesNacionalPage({ onBack }: { onBack: () => void }) 
                             {error && <div className="p-3 bg-red-50 text-red-700 rounded-lg text-sm">{error}</div>}
 
                             <button type="submit" disabled={loading}
-                                className="w-full h-11 text-sm font-semibold rounded-lg bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-green-200/50 dark:shadow-none transition-all">
+                                className="w-full h-11 text-sm font-semibold rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-emerald-200/50 dark:shadow-none transition-all">
                                 <Calculator className="w-4 h-4" />
                                 {loading ? 'Calculando...' : 'Calcular DAS'}
                             </button>
@@ -204,11 +204,11 @@ export default function SimplesNacionalPage({ onBack }: { onBack: () => void }) 
                                             <div className="text-xs text-slate-500 dark:text-slate-400">Dedução</div>
                                             <div className="text-base font-bold text-slate-900 dark:text-white">{fmt(result.resultado.deducao)}</div>
                                         </div>
-                                        <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
-                                            <div className="text-xs text-green-600 dark:text-green-400">Alíq. Efetiva</div>
-                                            <div className="text-base font-bold text-green-600 dark:text-green-400">{result.resultado.aliqEfetiva.toFixed(2)}%</div>
+                                        <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-3">
+                                            <div className="text-xs text-emerald-600 dark:text-emerald-400">Alíq. Efetiva</div>
+                                            <div className="text-base font-bold text-emerald-600 dark:text-emerald-400">{result.resultado.aliqEfetiva.toFixed(2)}%</div>
                                         </div>
-                                        <div className="bg-green-600 rounded-lg p-3">
+                                        <div className="bg-emerald-600 rounded-lg p-3">
                                             <div className="text-xs text-white/80">DAS a Pagar</div>
                                             <div className="text-base font-bold text-white">{fmt(result.resultado.valorDAS)}</div>
                                         </div>
